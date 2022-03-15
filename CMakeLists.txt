@@ -47,7 +47,7 @@ target_link_libraries(wrapper PRIVATE Qt5::Core Qt5::Widgets)
 enable_warnings(wrapper)
 
 add_executable(main
-  main.c
+  test/main.c
 )
 
 target_link_libraries(main
