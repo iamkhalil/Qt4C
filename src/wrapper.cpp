@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QWidget>
 #include <QDebug>
+#include <QFormLayout>
+#include <QLineEdit>
 
 #define TO_C(T) (static_cast<void *>(T))
 
@@ -95,4 +97,45 @@ const char *qt_widget_windowTitle(void *widget)
         auto title = static_cast<QWidget *>(widget)->windowTitle();
 
         return title.toLocal8Bit().constData();
+}
+
+void *qt_formLayout_new(void *parent)
+{
+	return TO_C(new (std::nothrow) QFormLayout(static_cast<QWidget *>(parent)));
+}
+
+void qt_formLayout_addRow(void *form, const char *labelText, void *field)
+{
+	auto f = static_cast<QFormLayout *>(form);
+
+	f->addRow(QString(labelText), static_cast<QWidget *>(field));
+}
+
+void *qt_lineEdit_new(const char *content, void *parent)
+{
+	return TO_C(new (std::nothrow) QLineEdit(QString(content),
+				static_cast<QWidget *>(parent)));
+}
+
+const char *qt_lineEdit_text(void *lineEdit)
+{
+	auto s = static_cast<QLineEdit *>(lineEdit)->text();
+
+	return s.toLocal8Bit().constData();
+}
+
+void qt_lineEdit_setText(void *lineEdit, const char *text)
+{
+	static_cast<QLineEdit *>(lineEdit)->setText(QString(text));
+}
+
+int qt_lineEdit_echoMode(void *lineEdit)
+{
+	return static_cast<QLineEdit *>(lineEdit)->echoMode();
+}
+
+void qt_lineEdit_setEchoMode(void *lineEdit, int mode)
+{
+	static_cast<QLineEdit *>(lineEdit)->setEchoMode(
+			static_cast<QLineEdit::EchoMode>(mode));
 }

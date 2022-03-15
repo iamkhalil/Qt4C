@@ -33,6 +33,17 @@ void qt_widget_show(void *widget);
 void qt_widget_setWindowTitle(void *widget, const char *title);
 const char *qt_widget_windowTitle(void *widget);
 
+/* QFormLayout */
+void *qt_formLayout_new(void *parent);
+void qt_formLayout_addRow(void *form, const char *labelText, void *field);
+
+/* QLineEdit */
+void *qt_lineEdit_new(const char *content, void *parent);
+const char *qt_lineEdit_text(void *lineEdit);
+void qt_lineEdit_setText(void *lineEdit, const char *text);
+int qt_lineEdit_echoMode(void *lineEdit);
+void qt_lineEdit_setEchoMode(void *lineEdit, int mode);
+
 #ifdef __cplusplus
 }
 #endif
