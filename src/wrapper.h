@@ -44,6 +44,9 @@ void qt_lineEdit_setText(void *lineEdit, const char *text);
 int qt_lineEdit_echoMode(void *lineEdit);
 void qt_lineEdit_setEchoMode(void *lineEdit, int mode);
 
+/* QPushButton */
+void *qt_pushButton_new(const char *text, void *parent);
+
 #ifdef __cplusplus
 }
 #endif

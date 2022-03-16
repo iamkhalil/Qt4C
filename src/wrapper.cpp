@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QFormLayout>
 #include <QLineEdit>
+#include <QPushButton>
 
 #define TO_C(T) (static_cast<void *>(T))
 
@@ -108,7 +109,11 @@ void qt_formLayout_addRow(void *form, const char *labelText, void *field)
 {
 	auto f = static_cast<QFormLayout *>(form);
 
-	f->addRow(QString(labelText), static_cast<QWidget *>(field));
+	if (labelText) {
+		f->addRow(QString(labelText), static_cast<QWidget *>(field));
+		return;
+	}
+	f->addRow(static_cast<QWidget *>(field));
 }
 
 void *qt_lineEdit_new(const char *content, void *parent)
@@ -138,4 +143,10 @@ void qt_lineEdit_setEchoMode(void *lineEdit, int mode)
 {
 	static_cast<QLineEdit *>(lineEdit)->setEchoMode(
 			static_cast<QLineEdit::EchoMode>(mode));
+}
+
+void *qt_pushButton_new(const char *text, void *parent)
+{
+        return TO_C(new (std::nothrow) QPushButton(QString(text),
+                                static_cast<QWidget *>(parent)));
 }
