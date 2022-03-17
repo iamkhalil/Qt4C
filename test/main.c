@@ -3,6 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void on_button_clicked(void *context, int checked)
+{
+	(void) context;
+	(void) checked;
+	puts("CALLBACK!");
+}
+
 int main(int argc, char *argv[])
 {
 	void *ap, *wp, *o, *form, *lineEdit, *lineEdit2, *btn;
@@ -62,12 +69,14 @@ int main(int argc, char *argv[])
 	qt_lineEdit_setText(lineEdit2, "crackme!");
 	printf("Echo Mode = %d\n", qt_lineEdit_echoMode(lineEdit2));
 
-	btn = qt_pushButton_new("Submit", wp);
+	btn = qt_pushButton_new(NULL, "Submit", wp);
 	if(!btn) {
 		puts("Error: can't instantiate QPushButton class.");
 		exit(8);
 	}
 	qt_formLayout_addRow(form, NULL, btn);
+
+	qt_abstractionButton_clicked_connect(btn, NULL, NULL, on_button_clicked);
 
 	o = qt_object_new(NULL);
 	if(!o) {

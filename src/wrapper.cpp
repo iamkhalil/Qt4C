@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QFormLayout>
 #include <QLineEdit>
+#include <QAbstractButton>
 #include <QPushButton>
 
 #define TO_C(T) (static_cast<void *>(T))
@@ -145,8 +146,40 @@ void qt_lineEdit_setEchoMode(void *lineEdit, int mode)
 			static_cast<QLineEdit::EchoMode>(mode));
 }
 
-void *qt_pushButton_new(const char *text, void *parent)
+void qt_abstractButton_setText(void *abstractButton, const char *text)
 {
-        return TO_C(new (std::nothrow) QPushButton(QString(text),
-                                static_cast<QWidget *>(parent)));
+	static_cast<QAbstractButton *>(abstractButton)->setText(text);
+}
+
+const char *qt_abstractButton_text(void *abstractButton)
+{
+	auto s = static_cast<QAbstractButton *>(abstractButton)->text();
+
+	return s.toLocal8Bit().constData();
+}
+
+void qt_abstractionButton_clicked_connect(void *abstractButton,
+					  void *receiver,
+					  void *context,
+					  void (*fn)(void *context, int checked))
+{
+	if (receiver) {
+		QObject::connect(static_cast<QAbstractButton *>(abstractButton),
+				&QAbstractButton::clicked,
+				static_cast<QObject *>(receiver),
+				[=](int checked) { (*fn)(context, checked); });
+		return;
+	}
+	QObject::connect(static_cast<QAbstractButton *>(abstractButton),
+			&QAbstractButton::clicked,
+			[=](int checked) { (*fn)(context, checked); });
+}
+
+void *qt_pushButton_new(void *icon, const char *text, void *parent)
+{
+	if (!icon)
+		return TO_C(new (std::nothrow) QPushButton(QString(text),
+					static_cast<QWidget *>(parent)));
+	return TO_C(new (std::nothrow) QPushButton(*static_cast<QIcon *>(icon),
+				QString(text), static_cast<QWidget *>(parent)));
 }

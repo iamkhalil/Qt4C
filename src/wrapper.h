@@ -44,8 +44,16 @@ void qt_lineEdit_setText(void *lineEdit, const char *text);
 int qt_lineEdit_echoMode(void *lineEdit);
 void qt_lineEdit_setEchoMode(void *lineEdit, int mode);
 
+/* QAbstractButton */
+void qt_abstractButton_setText(void *abstractButton, const char *text);
+const char *qt_abstractButton_text(void *abstractButton);
+void qt_abstractionButton_clicked_connect(void *abstractButton,
+					  void *receiver,
+					  void *context,
+					  void (*fn)(void *context, int checked));
+
 /* QPushButton */
-void *qt_pushButton_new(const char *text, void *parent);
+void *qt_pushButton_new(void *icon, const char *text, void *parent);
 
 #ifdef __cplusplus
 }
