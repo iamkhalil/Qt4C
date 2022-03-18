@@ -158,10 +158,10 @@ const char *qt_abstractButton_text(void *abstractButton)
 	return s.toLocal8Bit().constData();
 }
 
-void qt_abstractionButton_clicked_connect(void *abstractButton,
-					  void *receiver,
-					  void *context,
-					  void (*fn)(void *context, int checked))
+void qt_abstractButton_clicked_connect(void *abstractButton,
+				       void *receiver,
+				       void *context,
+				       void (*fn)(void *context, int checked))
 {
 	if (receiver) {
 		QObject::connect(static_cast<QAbstractButton *>(abstractButton),
@@ -173,6 +173,23 @@ void qt_abstractionButton_clicked_connect(void *abstractButton,
 	QObject::connect(static_cast<QAbstractButton *>(abstractButton),
 			&QAbstractButton::clicked,
 			[=](int checked) { (*fn)(context, checked); });
+}
+
+void qt_abstractButton_pressed_connect(void *abstractButton,
+                                       void *receiver,
+                                       void *context,
+                                       void (*fn)(void *context))
+{
+        if (receiver) {
+		QObject::connect(static_cast<QAbstractButton *>(abstractButton),
+				&QAbstractButton::pressed,
+				static_cast<QObject *>(receiver),
+				[=]() { (*fn)(context); });
+		return;
+	}
+	QObject::connect(static_cast<QAbstractButton *>(abstractButton),
+			&QAbstractButton::pressed,
+			[=]() { (*fn)(context); });
 }
 
 void *qt_pushButton_new(void *icon, const char *text, void *parent)

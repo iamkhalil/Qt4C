@@ -48,6 +48,7 @@ enable_warnings(wrapper)
 
 add_executable(main
   test/main.c
+  test/0-test.c
 )
 
 target_link_libraries(main
