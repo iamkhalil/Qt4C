@@ -119,8 +119,10 @@ void qt_formLayout_addRow(void *form, const char *labelText, void *field)
 
 void *qt_lineEdit_new(const char *content, void *parent)
 {
-	return TO_C(new (std::nothrow) QLineEdit(QString(content),
-				static_cast<QWidget *>(parent)));
+	if (content)
+		return TO_C(new (std::nothrow) QLineEdit(QString(content),
+					static_cast<QWidget *>(parent)));
+	return TO_C(new (std::nothrow) QLineEdit(static_cast<QWidget *>(parent)));
 }
 
 const char *qt_lineEdit_text(void *lineEdit)
@@ -144,6 +146,35 @@ void qt_lineEdit_setEchoMode(void *lineEdit, int mode)
 {
 	static_cast<QLineEdit *>(lineEdit)->setEchoMode(
 			static_cast<QLineEdit::EchoMode>(mode));
+}
+
+void qt_lineEdit_setPlaceholderText(void *lineEdit, const char *text)
+{
+	static_cast<QLineEdit *>(lineEdit)->setPlaceholderText(text);
+}
+
+const char *qt_lineEdit_placeholderText(void *lineEdit)
+{
+	auto s = static_cast<QLineEdit *>(lineEdit)->placeholderText();
+
+	return s.toLocal8Bit().constData();
+}
+
+void qt_lineEdit_textChanged_connect(void *lineEdit,
+				     void *receiver,
+				     void *context,
+				     void (*fn)(void *context, void *lineEdit))
+{
+	if (receiver) {
+		QObject::connect(static_cast<QLineEdit *>(lineEdit),
+				 &QLineEdit::textChanged,
+				 static_cast<QObject *>(receiver),
+				 [=]() { (*fn)(context, lineEdit); });
+		return;
+	}
+	QObject::connect(static_cast<QLineEdit *>(lineEdit),
+			 &QLineEdit::textChanged,
+			 [=]() { (*fn)(context, lineEdit); });
 }
 
 void qt_abstractButton_setText(void *abstractButton, const char *text)

@@ -43,6 +43,12 @@ const char *qt_lineEdit_text(void *lineEdit);
 void qt_lineEdit_setText(void *lineEdit, const char *text);
 int qt_lineEdit_echoMode(void *lineEdit);
 void qt_lineEdit_setEchoMode(void *lineEdit, int mode);
+void qt_lineEdit_setPlaceholderText(void *lineEdit, const char *text);
+const char *qt_lineEdit_placeholderText(void *lineEdit);
+void qt_lineEdit_textChanged_connect(void *lineEdit,
+				     void *receiver,
+				     void *context,
+				     void (*fn)(void *context, void *lineEdit));
 
 /* QAbstractButton */
 void qt_abstractButton_setText(void *abstractButton, const char *text);

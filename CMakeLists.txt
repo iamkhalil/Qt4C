@@ -39,7 +39,6 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 add_library(wrapper SHARED
   src/wrapper.cpp
-  src/wrapper.h
 )
 
 target_link_libraries(wrapper PRIVATE Qt5::Core Qt5::Widgets)
@@ -49,6 +48,7 @@ enable_warnings(wrapper)
 add_executable(main
   test/main.c
   test/0-test.c
+  test/1-test.c
 )
 
 target_link_libraries(main

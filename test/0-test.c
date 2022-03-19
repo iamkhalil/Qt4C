@@ -15,10 +15,8 @@ void on_button_pressed(void *context)
 	puts("[CALLBACK]: Pressed!");
 }
 
-/**
- * test1 - Entry point
- */
-void test1(int ac, char *av[])
+/* Test definition */
+void test0(int ac, char *av[])
 {
 	void *ap, *wp, *o, *form, *lineEdit, *lineEdit2, *btn, *btn2;
 	int ret;
