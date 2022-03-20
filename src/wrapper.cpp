@@ -281,3 +281,14 @@ void qt_file_close(void *file)
 {
 	static_cast<QFile *>(file)->close();
 }
+
+void *qt_uiloader_new(void *parent)
+{
+	return TO_C(new (std::nothrow) QUiLoader(static_cast<QObject *>(parent)));
+}
+
+void *qt_uiloader_load(void *loader, void *device, void *parentWidget)
+{
+	return TO_C(static_cast<QUiLoader *>(loader)->load(static_cast<QIODevice *>(device),
+						static_cast<QWidget *>(parentWidget)));
+}

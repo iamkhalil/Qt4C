@@ -78,7 +78,8 @@ int qt_file_open(void *file, int mode);
 void qt_file_close(void *file);
 
 /* QUiLoader */
-
+void *qt_uiloader_new(void *parent);
+void *qt_uiloader_load(void *loader, void *device, void *parentWidget);
 
 #ifdef __cplusplus
 }

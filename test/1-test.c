@@ -11,10 +11,10 @@ void on_lineEdit_textChanged(void *context, void *lineEdit)
 
 void test1(int ac, char *av[])
 {
-	void *ap, *wp, *form, *lp, *file;
+	void *ap, *wp, *form, *lp, *file, *loader, *widget;
 	char *context;
 
-	ap = wp = form = lp = file = NULL;
+	ap = wp = form = lp = file = loader = widget = NULL;
 
 	ap = qt_application_new(&ac, av);
 	if (!ap) {
@@ -59,7 +59,17 @@ void test1(int ac, char *av[])
 		puts("Close!");
 	}
 
-	qt_widget_show(wp);
+	loader = qt_uiloader_new(NULL);
+	if (!loader) {
+		puts("Failed to instantiate QUiLoader class.");
+		exit(6);
+	}
+	file = qt_file_new("calculatrice.ui", ap);
+	qt_file_open(file, 1);
+	widget = qt_uiloader_load(loader, file, NULL);
+
+//	qt_widget_show(wp);
+	qt_widget_show(widget);
 	qt_application_exec(ap);
 
 	qt_object_delete(file);
