@@ -72,6 +72,14 @@ void qt_abstractButton_pressed_connect(void *abstractButton,
 /* QPushButton */
 void *qt_pushButton_new(void *icon, const char *text, void *parent);
 
+/* QFile */
+void *qt_file_new(const char *name, void *parent);
+int qt_file_open(void *file, int mode);
+void qt_file_close(void *file);
+
+/* QUiLoader */
+
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

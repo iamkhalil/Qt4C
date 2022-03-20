@@ -9,6 +9,8 @@
 #include <QLineEdit>
 #include <QAbstractButton>
 #include <QPushButton>
+#include <QFile>
+#include <QtUiTools>
 
 #define TO_C(T) (static_cast<void *>(T))
 
@@ -68,9 +70,8 @@ void *qt_object_destroyed_connect(void *object,
 				&QObject::destroyed,
 				[=]() { (*fn)(context); });
 	}
-	return TO_C(new QMetaObject::Connection(c));
+	return TO_C(new (std::nothrow) QMetaObject::Connection(c));
 }
-
 
 void qt_object_dumpObjectInfo(void *object)
 {
@@ -257,4 +258,26 @@ void *qt_pushButton_new(void *icon, const char *text, void *parent)
 					static_cast<QWidget *>(parent)));
 	return TO_C(new (std::nothrow) QPushButton(*static_cast<QIcon *>(icon),
 				QString(text), static_cast<QWidget *>(parent)));
+}
+
+void *qt_file_new(const char *name, void *parent)
+{
+	if (!name && !parent)
+		return TO_C(new (std::nothrow) QFile());
+	else if (!parent)
+		return TO_C(new (std::nothrow) QFile(name));
+	else if (!name)
+		return TO_C(new (std::nothrow) QFile(static_cast<QObject *>(parent)));
+	else
+		return TO_C(new (std::nothrow) QFile(name, static_cast<QObject *>(parent)));
+}
+
+int qt_file_open(void *file, int mode)
+{
+	return (int) static_cast<QFile *>(file)->open(static_cast<QFlags<QIODevice::OpenModeFlag>>(mode));
+}
+
+void qt_file_close(void *file)
+{
+	static_cast<QFile *>(file)->close();
 }

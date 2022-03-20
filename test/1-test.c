@@ -11,10 +11,10 @@ void on_lineEdit_textChanged(void *context, void *lineEdit)
 
 void test1(int ac, char *av[])
 {
-	void *ap, *wp, *form, *lp;
+	void *ap, *wp, *form, *lp, *file;
 	char *context;
 
-	ap = wp = form = lp = NULL;
+	ap = wp = form = lp = file = NULL;
 
 	ap = qt_application_new(&ac, av);
 	if (!ap) {
@@ -48,9 +48,21 @@ void test1(int ac, char *av[])
 
 	qt_lineEdit_textChanged_connect(lp, NULL, NULL, on_lineEdit_textChanged);
 
+	if ((file = qt_file_new("filename.txt", ap)) != NULL) {
+		puts("filename.txt created successfully.");
+		if (qt_file_open(file, 2) == 0) {
+			puts("Failed to open filename.txt");
+			exit(5);
+		}
+		puts("Open!");
+		qt_file_close(file);
+		puts("Close!");
+	}
+
 	qt_widget_show(wp);
 	qt_application_exec(ap);
 
+	qt_object_delete(file);
 	qt_object_delete(lp);
 	qt_object_delete(form);
 	qt_object_delete(wp);

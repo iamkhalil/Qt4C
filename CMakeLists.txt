@@ -35,13 +35,13 @@ function(enable_warnings target)
 
 endfunction()
 
-find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets UiTools REQUIRED)
 
 add_library(wrapper SHARED
   src/wrapper.cpp
 )
 
-target_link_libraries(wrapper PRIVATE Qt5::Core Qt5::Widgets)
+target_link_libraries(wrapper PRIVATE Qt5::Core Qt5::Widgets Qt5::UiTools)
 
 enable_warnings(wrapper)
 
