@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QObject>
+#include <QMetaObject>
 #include <QWidget>
 #include <QDebug>
 #include <QFormLayout>
@@ -44,6 +45,32 @@ void qt_object_delete(void *object)
 {
 	delete static_cast<QObject *>(object);
 }
+
+int qt_object_disconnect(void *connection)
+{
+	return (int) QObject::disconnect(*static_cast<QMetaObject::Connection *>(connection));
+}
+
+void *qt_object_destroyed_connect(void *object,
+				  void *receiver,
+				  void *context,
+				  void (*fn)(void *context))
+{
+	QMetaObject::Connection c;
+
+	if (receiver) {
+		c = QObject::connect(static_cast<QObject *>(object),
+				&QObject::destroyed,
+				static_cast<QObject *>(receiver),
+				[=]() { (*fn)(context); });
+	} else {
+		c = QObject::connect(static_cast<QObject *>(object),
+				&QObject::destroyed,
+				[=]() { (*fn)(context); });
+	}
+	return TO_C(new QMetaObject::Connection(c));
+}
+
 
 void qt_object_dumpObjectInfo(void *object)
 {

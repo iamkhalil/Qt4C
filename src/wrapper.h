@@ -18,6 +18,12 @@ int qt_application_setStyle(void *app, const char *style);
 /* QObject */
 void *qt_object_new(void *parent);
 void qt_object_delete(void *object);
+int qt_object_disconnect(void *connection);
+void *qt_object_destroyed_connect(void *object,
+				  void *receiver,
+				  void *context,
+				  void (*fn)(void *context));
+
 void qt_object_dumpObjectInfo(void *object);
 void qt_object_dumpObjectTree(void *object);
 void qt_object_setObjectName(void *object, const char *name);
@@ -68,7 +74,7 @@ void *qt_pushButton_new(void *icon, const char *text, void *parent);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* WRAPPER_H */
 
