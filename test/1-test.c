@@ -65,17 +65,19 @@ void test1(int ac, char *av[])
 		exit(6);
 	}
 	file = qt_file_new("calculatrice.ui", ap);
-	qt_file_open(file, 1);
+	qt_file_open(file, 1); // ReadOnly
 	widget = qt_uiloader_load(loader, file, NULL);
 
-//	qt_widget_show(wp);
+	qt_widget_show(wp);
 	qt_widget_show(widget);
+
 	qt_application_exec(ap);
 
 	qt_object_delete(file);
 	qt_object_delete(lp);
 	qt_object_delete(form);
 	qt_object_delete(wp);
+	qt_object_delete(widget);
 	qt_object_delete(ap);
 }
 

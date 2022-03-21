@@ -282,6 +282,18 @@ void qt_file_close(void *file)
 	static_cast<QFile *>(file)->close();
 }
 
+void *qt_dir_new(const char *path)
+{
+        return TO_C(new (std::nothrow) QDir(path));
+}
+
+char *qt_dir_absoluteFilePath(void *dir, const char *filename)
+{
+        auto s = static_cast<QDir *>(dir)->absoluteFilePath(filename);
+
+        return s.toLocal8Bit().data();
+}
+
 void *qt_uiloader_new(void *parent)
 {
 	return TO_C(new (std::nothrow) QUiLoader(static_cast<QObject *>(parent)));
@@ -291,4 +303,9 @@ void *qt_uiloader_load(void *loader, void *device, void *parentWidget)
 {
 	return TO_C(static_cast<QUiLoader *>(loader)->load(static_cast<QIODevice *>(device),
 						static_cast<QWidget *>(parentWidget)));
+}
+
+void qt_uiloader_setWorkingDirectory(void *loader, void *dir)
+{
+        static_cast<QUiLoader *>(loader)->setWorkingDirectory(*static_cast<QDir *>(dir));
 }

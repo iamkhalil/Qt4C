@@ -39,6 +39,7 @@ find_package(Qt5 COMPONENTS Core Widgets UiTools REQUIRED)
 
 add_library(wrapper SHARED
   src/wrapper.cpp
+  build/resource.qrc
 )
 
 target_link_libraries(wrapper PRIVATE Qt5::Core Qt5::Widgets Qt5::UiTools)
@@ -49,6 +50,7 @@ add_executable(main
   test/main.c
   test/0-test.c
   test/1-test.c
+  test/2-test.c
 )
 
 target_link_libraries(main

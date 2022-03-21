@@ -77,9 +77,14 @@ void *qt_file_new(const char *name, void *parent);
 int qt_file_open(void *file, int mode);
 void qt_file_close(void *file);
 
+/* QDir */
+void *qt_dir_new(const char *path);
+char *qt_dir_absoluteFilePath(void *dir, const char *filename);
+
 /* QUiLoader */
 void *qt_uiloader_new(void *parent);
 void *qt_uiloader_load(void *loader, void *device, void *parentWidget);
+void qt_uiloader_setWorkingDirectory(void *loader, void *dir);
 
 #ifdef __cplusplus
 }
