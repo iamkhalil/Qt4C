@@ -4,34 +4,27 @@
 
 void test2(int ac, char *av[])
 {
-	void *ap, *wp, *file, *loader, *dir;
-
-	ap = wp = loader = file = dir = NULL;
+	void *ap, *wp, *file, *loader, *resource;
+	const char *path = "/home/khalil/Qt4C/build/resource.rcc";
 
 	ap = qt_application_new(&ac, av);
-	loader = qt_uiloader_new(NULL);
 
-	dir = qt_dir_new("../build/");
-	if (!dir) {
-		puts("Error: PATH.");
+	resource = qt_resource_new(NULL, NULL);
+	if (!resource) {
+		puts("Error: can't instantiate QResource class.");
 		exit(1);
 	}
-
-	qt_uiloader_setWorkingDirectory(loader, dir);
-
-	file = qt_file_new("mainwindow.ui", ap);
-	if (!file) {
-		puts("Error: file.");
+	if (!qt_resource_registerResource(resource, path, NULL)) {
+		puts("Error while loading resource.rcc");
 		exit(2);
 	}
 
+	file = qt_file_new("mainwindow.ui", ap);
 	qt_file_open(file, READONLY);
+	loader = qt_uiloader_new(NULL);
 	wp = qt_uiloader_load(loader, file, NULL);
-	if (!wp) {
-		puts("Error: loader.");
-		exit(3);
-	}
 	qt_file_close(file);
+
 	qt_widget_show(wp);
 	qt_application_exec(ap);
 

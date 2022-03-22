@@ -309,3 +309,17 @@ void qt_uiloader_setWorkingDirectory(void *loader, void *dir)
 {
         static_cast<QUiLoader *>(loader)->setWorkingDirectory(*static_cast<QDir *>(dir));
 }
+
+void *qt_resource_new(const char *file, void *locale)
+{
+        if (locale)
+                return TO_C(new (std::nothrow) QResource(file, *static_cast<QLocale *>(locale)));
+        return TO_C(new (std::nothrow) QResource(file));
+}
+
+int qt_resource_registerResource(void *resource, const char *rccFileName, const char *mapRoot)
+{
+        auto r = static_cast<QResource *>(resource);
+
+        return (int) (r->registerResource(rccFileName, mapRoot));
+}

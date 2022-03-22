@@ -86,6 +86,10 @@ void *qt_uiloader_new(void *parent);
 void *qt_uiloader_load(void *loader, void *device, void *parentWidget);
 void qt_uiloader_setWorkingDirectory(void *loader, void *dir);
 
+/* QResoure */
+void *qt_resource_new(const char *file, void *locale);
+int qt_resource_registerResource(void *resource, const char *rccFileName, const char *mapRoot);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
