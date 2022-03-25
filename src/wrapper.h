@@ -29,6 +29,7 @@ void qt_object_dumpObjectTree(void *object);
 void qt_object_setObjectName(void *object, const char *name);
 const char *qt_object_objectName(void *object);
 void *qt_object_parent(void *object);
+void *qt_object_findChild(void *object, const char *name, int options);
 
 /* QDebug */
 void qt_debug_print(void *object);
@@ -89,6 +90,9 @@ void qt_uiloader_setWorkingDirectory(void *loader, void *dir);
 /* QResoure */
 void *qt_resource_new(const char *file, void *locale);
 int qt_resource_registerResource(void *resource, const char *rccFileName, const char *mapRoot);
+
+/* QString */
+char *qt_string_number_double(double n, char format, int precision);
 
 #ifdef __cplusplus
 }

@@ -7,11 +7,13 @@
  */
 int main(int argc, char *argv[])
 {
-	test0(argc, argv);
-	puts("--------------------\n");
+/*	test0(argc, argv);
+	puts("\n--------------------");
 	test1(argc, argv);
-	puts("--------------------\n");
+	puts("\n--------------------");
 	test2(argc, argv);
+	puts("\n--------------------");
+*/	test3(argc, argv);
 
 	return 0;
 }

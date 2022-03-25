@@ -100,6 +100,14 @@ void *qt_object_parent(void *object)
 	return TO_C(static_cast<QObject *>(object)->parent());
 }
 
+void *qt_object_findChild(void *object, const char *name, int options)
+{
+        auto o = static_cast<QObject *>(object);
+
+	//FIXME
+        return TO_C(o->findChild<QWidget *>(name, static_cast<QFlags<Qt::FindChildOption>>(options)));
+}
+
 void qt_debug_print(void *object)
 {
 	auto o = static_cast<QObject *>(object);
@@ -322,4 +330,11 @@ int qt_resource_registerResource(void *resource, const char *rccFileName, const 
         auto r = static_cast<QResource *>(resource);
 
         return (int) (r->registerResource(rccFileName, mapRoot));
+}
+
+char *qt_string_number_double(double n, char format, int precision)
+{
+	auto s = QString::number(n, format, precision);
+
+	return s.toLocal8Bit().data();
 }

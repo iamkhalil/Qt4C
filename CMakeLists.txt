@@ -50,6 +50,7 @@ add_executable(main
   test/0-test.c
   test/1-test.c
   test/2-test.c
+  test/3-test.c
 )
 
 target_link_libraries(main
