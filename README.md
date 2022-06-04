@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 ```
 becomes:
 ```c
-#include <qt4c.h>
+#include <wrapper.h>
 
 int main(int argc, char *argv[])
 {
@@ -53,7 +53,7 @@ $ mkdir build && cd build
 $ cmake ..
 $ cmake --build .
 ```
-You can now use qt4c as a shared library with your C applications.
+You can now use Qt4C as a shared library with your C applications.
 Here is an example CMakeLists.txt file:
 ```cmake
 cmake_minimum_required(VERSION 3.20)
@@ -63,11 +63,11 @@ add_subdirectory(Qt4C)
 add_executable(myapp main.c)
 
 target_include_directories(myapp PRIVATE Qt4C/src)
-target_link_libraries(myapp PRIVATE qt4c)
+target_link_libraries(myapp PRIVATE wrapper)
 ```
 ## Example
 [Calculator](https://github.com/iamkhalil/Qt4C/blob/master/test/3-test.c)
-![calc](https://i.imgur.com/m48CvJW.png)
+![calc](https://i.imgur.com/KP3pDsV.png)
 
 ## Author
 - **Mohamed khalil El-Bechir** - [medkhalilelb@gmail.com](medkhalilelb@gmail.com) | [GitHub/iamkhalil](https://github.com/iamkhalil)
