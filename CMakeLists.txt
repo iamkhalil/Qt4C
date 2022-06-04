@@ -37,13 +37,13 @@ endfunction()
 
 find_package(Qt5 COMPONENTS Core Widgets UiTools REQUIRED)
 
-add_library(wrapper SHARED
+add_library(qt4c SHARED
   src/wrapper.cpp
 )
 
-target_link_libraries(wrapper PRIVATE Qt5::Core Qt5::Widgets Qt5::UiTools)
+target_link_libraries(qt4c PRIVATE Qt5::Core Qt5::Widgets Qt5::UiTools)
 
-enable_warnings(wrapper)
+enable_warnings(qt4c)
 
 add_executable(main
   test/main.c
@@ -54,5 +54,5 @@ add_executable(main
 )
 
 target_link_libraries(main
-  wrapper
+  qt4c
 )
