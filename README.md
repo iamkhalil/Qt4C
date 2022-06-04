@@ -53,21 +53,22 @@ $ mkdir build && cd build
 $ cmake ..
 $ cmake --build .
 ```
-You can now use qt4c as a shared library with your C applications.
+You can now use Qt4C as a shared library with your C applications.
 Here is an example CMakeLists.txt file:
 ```cmake
 cmake_minimum_required(VERSION 3.20)
-project(myapp)
+project(app)
 
 add_subdirectory(Qt4C)
-add_executable(main main.c)
+add_executable(myapp main.c)
 
-target_include_directories(main PRIVATE Qt4C/src)
-target_link_libraries(main PRIVATE qt4c)
+target_include_directories(myapp PRIVATE Qt4C/src)
+target_link_libraries(myapp PRIVATE qt4c)
 ```
 ## Example
-[Calculator app](https://github.com/iamkhalil/Qt4C/blob/master/test/3-test.c)
+[Calculator](https://github.com/iamkhalil/Qt4C/blob/master/test/3-test.c)
 ![calc](https://i.imgur.com/m48CvJW.png)
+
 ## Author
 - **Mohamed khalil El-Bechir** - [medkhalilelb@gmail.com](medkhalilelb@gmail.com) | [GitHub/iamkhalil](https://github.com/iamkhalil)
 ## Licence
