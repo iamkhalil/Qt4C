@@ -53,7 +53,7 @@ $ mkdir build && cd build
 $ cmake ..
 $ cmake --build .
 ```
-You can now use Qt4C as a shared library with your C applications.
+You can now use qt4c as a shared library with your C applications.
 Here is an example CMakeLists.txt file:
 ```cmake
 cmake_minimum_required(VERSION 3.20)
