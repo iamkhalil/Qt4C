@@ -1,7 +1,7 @@
 # Qt4C
 
 ## Description
-This project tries to create a C wrapper library around common QT widgets so that it can be used as a basis for the development of GUI-based applications using the C programming language.
+This project tries to create a C wrapper library around standard QT widgets so that it can be used as a basis for the development of GUI-based applications using the C programming language.
 
 ## Requirements
 - Qt5 (you may also need to install the package `qttools5-dev` to get the Qt uitools module working on Linux)
