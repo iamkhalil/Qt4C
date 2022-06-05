@@ -66,7 +66,7 @@ target_include_directories(myapp PRIVATE Qt4C/src)
 target_link_libraries(myapp PRIVATE wrapper)
 ```
 ## Example
-[Calculator](https://github.com/iamkhalil/Qt4C/blob/master/test/3-test.c)
+[Calculator](https://github.com/iamkhalil/Qt4C/blob/master/test/3-test.c)\
 ![calc](https://i.imgur.com/K6arCVu.png)
 
 ## Author
