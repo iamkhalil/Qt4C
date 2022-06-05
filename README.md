@@ -67,7 +67,7 @@ target_link_libraries(myapp PRIVATE wrapper)
 ```
 ## Example
 [Calculator](https://github.com/iamkhalil/Qt4C/blob/master/test/3-test.c)
-![calc](https://i.imgur.com/KP3pDsV.png)
+![calc](https://i.imgur.com/K6arCVu.png)
 
 ## Author
 - **Mohamed khalil El-Bechir** - [medkhalilelb@gmail.com](medkhalilelb@gmail.com) | [GitHub/iamkhalil](https://github.com/iamkhalil)
